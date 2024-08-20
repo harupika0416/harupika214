@@ -141,10 +141,10 @@ def get_comments(videoid):
 def get_replies(videoid,key):
     t = json.loads(apicommentsrequest(fr"api/v1/comments/{videoid}?hmac_key={key}&hl=jp&format=html"))["contentHtml"]
 
-def get_level(siawaseok):
+def get_level(delight):
     for i1 in range(1,13):
         with open(f'Level{i1}.txt', 'r', encoding='UTF-8', newline='\n') as f:
-            if siawaseok in [i2.rstrip("\r\n") for i2 in f.readlines()]:
+            if delight in [i2.rstrip("\r\n") for i2 in f.readlines()]:
                 return i1
     return 0
 
