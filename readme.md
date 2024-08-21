@@ -5,7 +5,7 @@ render以外でデプロイした場合は掲示板機能は使えません
 とりあえずインビのインスタンス置いとく<br>
 https://docs.invidious.io/instances/<br>
 https://invidious.namazso.eu/<br>
-
+blog/index.html
 偽装ページが違うやつ  
 ブログをブロックされるとき用  
 ASGIで動く  
