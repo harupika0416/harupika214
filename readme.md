@@ -27,7 +27,7 @@ cookieにyuki=Trueを設定すると認証されます。
 <br>
 
 ##偽造ページの変え方
-## はじめに
+### はじめに
 
 このリポジトリをフォークしてください。  
 偽造ページを変更するには、以下のファイルを編集します:  
@@ -40,6 +40,7 @@ cookieにyuki=Trueを設定すると認証されます。
 **`<head>`タグに追加する内容:**
 ```html
 <link rel="stylesheet" href="styles.css">
+
 **`<body>` タグに追加する内容:**
 ```html
 <div id="cookie-notice" class="cookie-notice">
