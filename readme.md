@@ -2,7 +2,7 @@
  <h3>このリポジトリは様々なデプロイに対応しています(デプロイボタンあるよ～)</h3>
 render以外でデプロイした場合は掲示板機能は使えません
 <br><br>
-ASGIで動く    
+ASGIで動く、 
 blog内に静的サイトを入れると認証されていない時にそのサイトが表示されます。  
 cookieにyuki=Trueを設定すると認証されます。  
 サーバーの起動時に掲示板の公式インスタンスに接続します。定期的にサーバーを再起動してください。  <br>
@@ -50,4 +50,12 @@ cookieにyuki=Trueを設定すると認証されます。
     <button id="reject-btn">拒否する</button>
 </div>
 <script src="script.js"></script>
+```
+
+<br>
+
+<p>インビのインスタンス</p>
+https://docs.invidious.io/instances/<br>
+https://invidious.namazso.eu/<br>
+
 
