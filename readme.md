@@ -1,7 +1,7 @@
 <p>幸せok改造インスタンス</p>
 デプロイボタンは下
 
-### 使い方
+## 使い方
 
 右下に出てくる「Cookieを承認しますか？」を承認してください<br>
 拒否を押した場合ページをリロードすると再度表示されます。<br>
@@ -28,8 +28,6 @@ cookieにyuki=Trueを設定すると認証されます。
 <a href="https://render.com/deploy?repo=https://github.com/siawaseok3/slim-2-by-siawaseok.git">
  <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
 </a>
-<br>
-
 
 [![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?type=git&builder=buildpack&repository=github.com/siawaseok3/slim-2-by-siawaseok&branch=main&name=slim-2-by-siawaseok)
 <br>
