@@ -1,8 +1,14 @@
 幸せok改造インスタンス
+
 ###使い方
 右下に出てくる「Cookieを承認しますか？」を承認してください<br>
-拒否を押した場合ページをリロードすると再度表示されます。
-
+拒否を押した場合ページをリロードすると再度表示されます。<br>
+承認を押すと
+document.getElementById('accept-btn').addEventListener('click', function() {
+    document.cookie = "yuki=True; max-age=31536000; path=/";
+    location.href = "/";
+    return;
+});
 
  <h3>このリポジトリは様々なデプロイに対応しています(デプロイボタンあるよ～)</h3>
 render以外でデプロイした場合は掲示板機能は使えません
