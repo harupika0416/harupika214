@@ -20,7 +20,7 @@ cookieにyuki=Trueを設定すると認証されます。
  <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
 </a>
 <br>
-## Deploy to Koyeb
+
 
 [![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?type=git&builder=buildpack&repository=github.com/siawaseok3/slim-2-by-siawaseok&branch=main&name=slim-2-by-siawaseok)
 <br>
