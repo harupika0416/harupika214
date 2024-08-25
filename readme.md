@@ -70,7 +70,7 @@ cookieにyuki=Trueを設定すると認証されます。
 
 <br>
 
-<p>インビのインスタンス</p>
+### インビのインスタンス
 https://docs.invidious.io/instances/<br>
 https://invidious.namazso.eu/<br>
 
