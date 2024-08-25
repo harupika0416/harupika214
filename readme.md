@@ -34,8 +34,7 @@ cookieにyuki=Trueを設定すると認証されます。
 
 次に偽造ページに使いたいhtmlを作ってください
 
-偽造ページを変更するには、以下のファイルを編集します:  
-[blog/index.html](https://github.com/siawaseok3/slim-2-by-siawaseok/blob/main/blog/index.html)
+偽造ページを変更するには、以下のファイルを編集します:[blog/index.html](https://github.com/siawaseok3/slim-2-by-siawaseok/blob/main/blog/index.html)
 
 
 作成した偽造ページのHTML内には、以下のコードが含まれている必要があります。これにより、サイトが正しく機能します。
