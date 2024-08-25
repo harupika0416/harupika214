@@ -1,18 +1,12 @@
 幸せok改造インスタンス
- <h3>このリポジトリは様々なデプロイに対応しています</h3>
+ <h3>このリポジトリは様々なデプロイに対応しています(デプロイボタンあるよ～)</h3>
 render以外でデプロイした場合は掲示板機能は使えません
 <br><br>
-とりあえずインビのインスタンス置いとく<br>
-https://docs.invidious.io/instances/<br>
-https://invidious.namazso.eu/<br>
-
-  
 ASGIで動く    
 blog内に静的サイトを入れると認証されていない時にそのサイトが表示されます。  
 cookieにyuki=Trueを設定すると認証されます。  
 サーバーの起動時に掲示板の公式インスタンスに接続します。定期的にサーバーを再起動してください。  <br>
 <br><p>このリポジトリをデプロイ(slim-2-by-siawaseok.git)</p>
-
 <a href="https://render.com/deploy?repo=https://github.com/siawaseok3/slim-2-by-siawaseok.git">
  <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
 </a>
