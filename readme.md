@@ -17,7 +17,7 @@ document.getElementById('accept-btn').addEventListener('click', function() {
 
 
 
-<br><br>
+## 説明(?)
 ASGIで動く、 
 blog内に静的サイトを入れると認証されていない時にそのサイトが表示されます。  
 cookieにyuki=Trueを設定すると認証されます。  
