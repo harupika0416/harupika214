@@ -1,4 +1,5 @@
 <p>幸せok改造インスタンス</p>
+デプロイボタンは下
 
 ### 使い方
 
@@ -11,11 +12,10 @@ document.getElementById('accept-btn').addEventListener('click', function() {
     location.href = "/";
     return;
 });
-```が実行されます。
+```
+が実行されます。
 
 
- <h3>このリポジトリは様々なデプロイに対応しています(デプロイボタンあるよ～)</h3>
-render以外でデプロイした場合は掲示板機能は使えません
 <br><br>
 ASGIで動く、 
 blog内に静的サイトを入れると認証されていない時にそのサイトが表示されます。  
