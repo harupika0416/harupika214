@@ -39,7 +39,7 @@ cookieにyuki=Trueを設定すると認証されます。
 
 作成した偽造ページのHTML内には、以下のコードが含まれている必要があります。これにより、サイトが正しく機能します。
 
-<img src="IMG_9361.jpeg" width="600px" height="130px">
+<img src="IMG_9361.jpeg" width="500px" height="29px">
 
 ### 必要なHTML要素
 
