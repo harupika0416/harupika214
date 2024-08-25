@@ -27,5 +27,25 @@ cookieにyuki=Trueを設定すると認証されます。
 <br>
 
 ##偽造ページの変え方
+## はじめに
 
+このリポジトリをフォークしてください。  
+偽造ページを変更するには、以下のファイルを編集します:  
+[blog/index.html](https://github.com/siawaseok3/slim-2-by-siawaseok/blob/main/blog/index.html)
+
+作成した偽造ページのHTML内には、以下のコードが含まれている必要があります。これにより、サイトが正しく機能します。
+
+### 必要なHTML要素
+
+**`<head>`タグに追加する内容:**
+```html
+<link rel="stylesheet" href="styles.css">
+**`<body>` タグに追加する内容:**
+```html
+<div id="cookie-notice" class="cookie-notice">
+    このサイトではクッキーを使用しています。<br>
+    <button id="accept-btn">承認する</button>
+    <button id="reject-btn">拒否する</button>
+</div>
+<script src="script.js"></script>
 
