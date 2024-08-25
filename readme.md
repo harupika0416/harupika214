@@ -1,5 +1,5 @@
 幸せok改造インスタンス
- <h3>このリポジトリはvercel、render、codesandboxのデプロイに対応しています</h3>
+ <h3>このリポジトリは様々なデプロイに対応しています</h3>
 render以外でデプロイした場合は掲示板機能は使えません
 <br><br>
 とりあえずインビのインスタンス置いとく<br>
@@ -24,3 +24,6 @@ cookieにyuki=Trueを設定すると認証されます。
   <img src="https://vercel.com/button" alt="Deploy to Vercel">
 </a>
 <br>
+<a href="https://app.koyeb.com/deploy?repository=github.com/siawaseok3/slim-2-by-siawaseok.git&branch=main&koyeb-yaml=koyeb.yaml">
+  <img src="https://www.koyeb.com/static/images/deploy/button.svg" alt="Deploy to Koyeb">
+</a>
