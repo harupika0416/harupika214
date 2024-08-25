@@ -5,7 +5,8 @@
 
 右下に出てくる「Cookieを承認しますか？」を承認してください<br>
 拒否を押した場合ページをリロードすると再度表示されます。<br>
-承認を押すと
+
+承認を押すと↓が実行されます。
 ```JavaScript
 document.getElementById('accept-btn').addEventListener('click', function() {
     document.cookie = "yuki=True; max-age=31536000; path=/";
@@ -13,7 +14,7 @@ document.getElementById('accept-btn').addEventListener('click', function() {
     return;
 });
 ```
-が実行されます。
+
 
 
 <br><br>
