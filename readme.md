@@ -24,6 +24,6 @@ cookieにyuki=Trueを設定すると認証されます。
   <img src="https://vercel.com/button" alt="Deploy to Vercel">
 </a>
 <br>
-<a href="https://codesandbox.io/s/github/siawaseok3/slim-2-by-siawaseok">
+<a href="https://codesandbox.io/s/github/siawaseok3/slim-2-by-siawaseok?file=/index.js">
   <img alt="Open in CodeSandbox" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
