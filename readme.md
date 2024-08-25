@@ -25,7 +25,7 @@ cookieにyuki=Trueを設定すると認証されます。
 [![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?type=git&builder=buildpack&repository=github.com/siawaseok3/slim-2-by-siawaseok&branch=main&name=slim-2-by-siawaseok)
 <br>
 <a href="https://vercel.com/new/clone?repository-url=https://github.com/siawaseok3/slim-2-by-siawaseok.git">
-  <img src="https://vercel.com/button" alt="Deploy to Vercel">
+  <img src="https://vercel.com/button" alt="Deployto Vercel">
 </a>
 <br>
 
