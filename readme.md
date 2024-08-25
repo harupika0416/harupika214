@@ -1,6 +1,6 @@
 <p>幸せok改造インスタンス</p>
 
-###使い方
+### 使い方
 
 右下に出てくる「Cookieを承認しますか？」を承認してください<br>
 拒否を押した場合ページをリロードすると再度表示されます。<br>
@@ -11,8 +11,8 @@ document.getElementById('accept-btn').addEventListener('click', function() {
     location.href = "/";
     return;
 });
-```
-が実行されます。
+```が実行されます。
+
 
  <h3>このリポジトリは様々なデプロイに対応しています(デプロイボタンあるよ～)</h3>
 render以外でデプロイした場合は掲示板機能は使えません
