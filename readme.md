@@ -40,7 +40,7 @@ cookieにyuki=Trueを設定すると認証されます。
 **`<head>`タグに追加する内容:**
 ```html
 <link rel="stylesheet" href="styles.css">
-
+```
 **`<body>` タグに追加する内容:**
 ```html
 <div id="cookie-notice" class="cookie-notice">
