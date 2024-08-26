@@ -26,14 +26,13 @@ cookieにyuki=Trueを設定すると認証されます。
 ## デプロイ
 (slim-2-by-siawaseok.gitがデプロイされます)<br>
 <a href="https://render.com/deploy?repo=https://github.com/siawaseok3/slim-2-by-siawaseok.git">
- <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
+ <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render"><br>
 </a>
-
-[![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?type=git&builder=buildpack&repository=github.com/siawaseok3/slim-2-by-siawaseok&branch=main&name=slim-2-by-siawaseok)
-<br>
 <a href="https://vercel.com/new/clone?repository-url=https://github.com/siawaseok3/slim-2-by-siawaseok.git">
   <img src="https://vercel.com/button" alt="Deployto Vercel">
 </a>
+
+[![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?type=git&builder=buildpack&repository=github.com/siawaseok3/slim-2-by-siawaseok&branch=main&name=slim-2-by-siawaseok)
 <br>
 
 <h2>偽造ページの変え方</h2>
