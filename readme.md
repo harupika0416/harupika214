@@ -51,7 +51,7 @@ cookieにyuki=Trueを設定すると認証されます。
 <img src="IMG_9361.jpeg" width="60%" height="60%">
 (これが出てくる様になる)
 
-### 必要なHTML要素
+### 偽造ページに必要なHTML要素
 
 **`<head>`タグに追加する内容:**
 ```html
