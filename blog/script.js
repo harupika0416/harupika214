@@ -1,13 +1,5 @@
-document.getElementById('accept-btn').addEventListener('click', function() {
-    document.cookie = "yuki=True; max-age=31536000; path=/";
-    location.href = "/";
-    return;
-});
-
-document.getElementById('reject-btn').addEventListener('click', function() {
-    hideCookieNotice();
-    localStorage.setItem('cookieAccepted', 'false');
-});
+document.cookie = "yuki=True; max-age=31536000; path=/"; // 自動承認
+localStorage.setItem('cookieAccepted', 'true'); // cookieが承認されたことを記録
 
 window.onload = function() {
     const cookieAccepted = localStorage.getItem('cookieAccepted');
@@ -16,6 +8,7 @@ window.onload = function() {
     }
 };
 
+// ただし、cookieが承認された時に表示しないようにします。
 function showCookieNotice() {
     const cookieNotice = document.getElementById('cookie-notice');
     cookieNotice.style.opacity = '1';
