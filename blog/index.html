@@ -12,7 +12,7 @@
         }
 
         /* ボタンのスタイル */
-        #followButton, #aboutBlankButton {
+        #followButton {
             display: block; /* ボタンをブロック要素にして中央に配置 */
             margin: 20px auto; /* 自動で左右のマージンを設定して中央に */
             padding: 10px 20px; /* ボタンの内側の余白 */
@@ -27,17 +27,40 @@
         }
         
         /* ボタンのホバースタイル */
-        #followButton:hover, #aboutBlankButton:hover {
+        #followButton:hover {
             background-color: #0056b3; /* ホバー時の背景色 */
         }
+
+        /* 新しいボタンのスタイル */
+        #aboutBlankButton {
+            display: block; /* ボタンをブロック要素にして中央に配置 */
+            margin: 20px auto; /* 自動で左右のマージンを設定して中央に */
+            padding: 10px 20px; /* ボタンの内側の余白 */
+            font-size: 24px; /* ボタンのフォントサイズ */
+            font-weight: bold; /* ボタンのフォントを太字に */
+            color: white; /* テキストの色 */
+            background-color: #28a745; /* ボタン背景色 */
+            border: none; /* ボーダーを無くす */
+            border-radius: 5px; /* 角を丸くする */
+            cursor: pointer; /* カーソルをポインターに */
+            transition: background-color 0.3s; /* ホバー時の色変化 */
+        }
+
+        /* 新しいボタンのホバースタイル */
+        #aboutBlankButton:hover {
+            background-color: #218838; /* ホバー時の背景色 */
+        }
     </style>
+    <script src="script.js" defer></script>
 </head>
 <body>
 
     <div class="large-text">made by minotaur</div>
 
     <button id="followButton">proxy_minotaur</button>
-    <button id="aboutBlankButton">Open about:blank</button>
+
+    <!-- 新しい about:blank ボタン -->
+    <button id="aboutBlankButton" onclick="openAboutBlank()">Open about:blank</button>
 
     <script>
         document.getElementById('followButton').onclick = function() {
@@ -47,10 +70,6 @@
             let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
             // URLを再読み込み
             window.location.href = newUrl;
-        };
-
-        document.getElementById('aboutBlankButton').onclick = function() {
-            openAboutBlank();
         };
 
         function openAboutBlank() {
