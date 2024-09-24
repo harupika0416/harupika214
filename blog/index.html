@@ -9,15 +9,33 @@
             font-size: 48px; /* 大きな文字サイズ */
             font-weight: bold;
             text-align: center;
+            margin-top: 20px; /* 上部に余白を追加 */
+        }
+
+        #followButton {
+            display: block; /* ボタンをブロック要素にして中央に配置 */
+            margin: 20px auto; /* 自動で左右のマージンを設定して中央に */
+            padding: 10px 20px; /* ボタンの内側の余白 */
+            font-size: 24px; /* ボタンのフォントサイズ */
+            font-weight: bold; /* ボタンのフォントを太字に */
+            color: white; /* テキストの色 */
+            background-color: #007BFF; /* ボタン背景色 */
+            border: none; /* ボーダーを無くす */
+            border-radius: 5px; /* 角を丸くする */
+            cursor: pointer; /* カーソルをポインターに */
+            transition: background-color 0.3s; /* ホバー時の色変化 */
+        }
+
+        #followButton:hover {
+            background-color: #0056b3; /* ホバー時の背景色 */
         }
     </style>
-    <script src="script.js" defer></script>
 </head>
 <body>
 
     <div class="large-text">made by minotaur</div>
 
-    <button id="followButton">proxy_minotaurをフォロー</button>
+    <button id="followButton">proxy_minotaur</button>
 
     <script>
         document.getElementById('followButton').onclick = function() {
@@ -32,3 +50,4 @@
 
 </body>
 </html>
+
