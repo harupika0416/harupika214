@@ -91,12 +91,15 @@
                     </body>
                 </html>
             `;
-            
-            // about:blankウィンドウに内容を埋め込む
-            aboutBlankWindow.document.write(content);
-            aboutBlankWindow.document.close(); // Documentを閉じて描画を完了する
+
+            // new windowが準備できるまで少し待機させる
+            setTimeout(() => {
+                aboutBlankWindow.document.write(content);
+                aboutBlankWindow.document.close(); // Documentを閉じて描画を完了する
+            }, 100); // 100ミリ秒待ってから内容を埋め込む
         }
     </script>
 
 </body>
 </html>
+
