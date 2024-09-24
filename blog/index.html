@@ -5,10 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        /* 背景画像のスタイル */
+        body {
+            background-image: url('https://th.bing.com/th/id/OIG2.3BcpEUF8r8X.D0qmjiIV?pid=ImgGn');
+            background-size: cover; /* 背景画像をカバー */
+            background-position: center; /* 画像を中央に */
+            margin: 0; /* デフォルトマージンをリセット */
+            font-family: Arial, sans-serif; /* フォントを指定 */
+        }
+
         .large-text {
             font-size: 48px; /* 大きな文字サイズ */
             font-weight: bold;
             text-align: center;
+            color: white; /* テキストを白色に */
+            margin-top: 20px; /* 上にマージンを追加 */
         }
 
         /* ボタンのスタイル */
@@ -25,7 +36,7 @@
             cursor: pointer; /* カーソルをポインターに */
             transition: background-color 0.3s; /* ホバー時の色変化 */
         }
-        
+
         /* ボタンのホバースタイル */
         #followButton:hover {
             background-color: #0056b3; /* ホバー時の背景色 */
@@ -33,112 +44,71 @@
 
         /* 新しいボタンのスタイル */
         #aboutBlankButton {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            background-color: #28a745;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            display: block; /* ボタンをブロック要素にして中央に配置 */
+            margin: 20px auto; /* 自動で左右のマージンを設定して中央に */
+            padding: 10px 20px; /* ボタンの内側の余白 */
+            font-size: 24px; /* ボタンのフォントサイズ */
+            font-weight: bold; /* ボタンのフォントを太字に */
+            color: white; /* テキストの色 */
+            background-color: #28a745; /* ボタン背景色 */
+            border: none; /* ボーダーを無くす */
+            border-radius: 5px; /* 角を丸くする */
+            cursor: pointer; /* カーソルをポインターに */
+            transition: background-color 0.3s; /* ホバー時の色変化 */
         }
 
         /* 新しいボタンのホバースタイル */
         #aboutBlankButton:hover {
-            background-color: #218838;
-        }
-
-        /* 大画面ボタンのスタイル */
-        #fullscreenButton {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            background-color: #17a2b8; /* 青緑色 */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        /* 大画面ボタンのホバースタイル */
-        #fullscreenButton:hover {
-            background-color: #138496;
+            background-color: #218838; /* ホバー時の背景色 */
         }
     </style>
     <script src="script.js" defer></script>
 </head>
 <body>
 
-    <div class="large-text">made by minotaur</div>
+<div class="large-text">made by minotaur</div>
 
-    <button id="followButton">proxy_minotaurをフォロー</button>
-    <button id="aboutBlankButton" onclick="openAboutBlank()">about:blankを開く</button>
-    <button id="fullscreenButton" onclick="toggleFullscreen()">大画面にする</button>
+<button id="followButton">proxy_minotaurをフォロー</button>
 
-    <script>
-        let currentUrl = ''; // ホストしているサイトのURL
-        let aboutBlankWindow; // about:blankのウィンドウ
-        let isFullscreen = false; // 大画面モードかどうか
+<!-- 新しい about:blank ボタン -->
+<button id="aboutBlankButton" onclick="openAboutBlank()">about:blankを開く</button>
 
-        document.getElementById('followButton').onclick = function() {
-            // 現在のURLを取得
-            let currentUrl = window.location.href;
-            // /siawaseok/ を削除
-            let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
-            // URLを再読み込み
-            window.location.href = newUrl;
-        };
+<script>
+    document.getElementById('followButton').onclick = function() {
+        // 現在のURLを取得
+        let currentUrl = window.location.href;
+        // /siawaseok/ を削除
+        let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
+        // URLを再読み込み
+        window.location.href = newUrl;
+    };
 
-        function openAboutBlank() {
-            currentUrl = window.location.href; // ホストしているサイトのURLを取得
-            aboutBlankWindow = window.open('about:blank', '_blank'); // about:blankを開く
+    function openAboutBlank() {
+        const currentUrl = window.location.href; // ホストしているサイトのURLを取得
+        const aboutBlankWindow = window.open('about:blank', '_blank'); // about:blankを開く
 
-            // about:blankに埋め込む内容を組み立てる
-            const content = `
-                <html>
-                    <head>
-                        <title>Embedded Site</title>
-                        <style>
-                            body { margin: 0; }
-                            iframe { width: 80vw; height: 80vh; border: none; transition: width 0.3s, height 0.3s; }
-                        </style>
-                    </head>
-                    <body>
-                        <iframe src="${currentUrl}" allowfullscreen></iframe>
-                    </body>
-                </html>
-            `;
+        // about:blankに埋め込む内容を組み立てる
+        const content = `
+            <html>
+                <head>
+                    <title>Embedded Site</title>
+                    <style>
+                        body { margin: 0; }
+                        iframe { width: 100vw; height: 100vh; border: none; }
+                    </style>
+                </head>
+                <body>
+                    <iframe src="${currentUrl}" allowfullscreen></iframe>
+                </body>
+            </html>
+        `;
 
-            // new windowが準備できるまで少し待機させる
-            setTimeout(() => {
-                aboutBlankWindow.document.write(content);
-                aboutBlankWindow.document.close(); // Documentを閉じて描画を完了する
-            }, 100); // 100ミリ秒待ってから内容を埋め込む
-        }
-
-        function toggleFullscreen() {
-            if (aboutBlankWindow && !aboutBlankWindow.closed) {
-                const iframe = aboutBlankWindow.document.querySelector('iframe');
-                if (isFullscreen) {
-                    // 通常サイズに戻す
-                    iframe.style.width = '80vw';
-                    iframe.style.height = '80vh';
-                } else {
-                    // 大画面に変更
-                    iframe.style.width = '100vw';
-                    iframe.style.height = '100vh';
-                }
-                isFullscreen = !isFullscreen;
-            }
-        }
-    </script>
-
+        // new windowが準備できるまで少し待機させる
+        setTimeout(() => {
+            aboutBlankWindow.document.write(content);
+            aboutBlankWindow.document.close(); // Documentを閉じて描画を完了する
+        }, 100); // 100ミリ秒待ってから内容を埋め込む
+    }
+</script>
 </body>
 </html>
-
