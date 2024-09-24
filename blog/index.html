@@ -14,6 +14,18 @@
             font-family: Arial, sans-serif; /* フォントを指定 */
         }
 
+        .overlay {
+            position: fixed; /* 上下左右に固定 */
+            top: 0; bottom: 0; right: 0; left: 0; /* 全体をカバー */
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色オーバーレイ */
+            z-index: 1; /* 背景素材の上に座標させる */
+        }
+
+        .content {
+            position: relative; /* 相対的な位置 */
+            z-index: 2; /* オーバーレイの上にテキストを表示 */
+        }
+
         .large-text {
             font-size: 48px; /* 大きな文字サイズ */
             font-weight: bold;
@@ -23,26 +35,7 @@
         }
 
         /* ボタンのスタイル */
-        #followButton {
-            display: block; /* ボタンをブロック要素にして中央に配置 */
-            margin: 20px auto; /* 自動で左右のマージンを設定して中央に */
-            padding: 10px 20px; /* ボタンの内側の余白 */
-            font-size: 24px; /* ボタンのフォントサイズ */
-            font-weight: bold; /* ボタンのフォントを太字に */
-            color: white; /* テキストの色 */
-            background-color: #007BFF; /* ボタン背景色 */
-            border: none; /* ボーダーを無くす */
-            border-radius: 5px; /* 角を丸くする */
-            cursor: pointer; /* カーソルをポインターに */
-            transition: background-color 0.3s; /* ホバー時の色変化 */
-        }
-
-        /* ボタンのホバースタイル */
-        #followButton:hover {
-            background-color: #0056b3; /* ホバー時の背景色 */
-        }
-
-        /* 新しいボタンのスタイル */
+        #followButton,
         #aboutBlankButton {
             display: block; /* ボタンをブロック要素にして中央に配置 */
             margin: 20px auto; /* 自動で左右のマージンを設定して中央に */
@@ -50,14 +43,27 @@
             font-size: 24px; /* ボタンのフォントサイズ */
             font-weight: bold; /* ボタンのフォントを太字に */
             color: white; /* テキストの色 */
-            background-color: #28a745; /* ボタン背景色 */
             border: none; /* ボーダーを無くす */
             border-radius: 5px; /* 角を丸くする */
             cursor: pointer; /* カーソルをポインターに */
             transition: background-color 0.3s; /* ホバー時の色変化 */
+            position: relative; /* 相対的に配置 */
+            z-index: 2; /* オーバーレイの上にボタンを表示 */
         }
 
-        /* 新しいボタンのホバースタイル */
+        #followButton {
+            background-color: #007BFF; /* ボタン背景色 */
+        }
+        
+        #aboutBlankButton {
+            background-color: #28a745; /* ボタン背景色 */
+        }
+
+        /* ボタンのホバースタイル */
+        #followButton:hover {
+            background-color: #0056b3; /* ホバー時の背景色 */
+        }
+
         #aboutBlankButton:hover {
             background-color: #218838; /* ホバー時の背景色 */
         }
@@ -66,12 +72,15 @@
 </head>
 <body>
 
-<div class="large-text">made by minotaur</div>
+<div class="overlay"></div> <!-- オーバーレイを追加 -->
+<div class="content"> <!-- コンテンツをラップ -->
+    <div class="large-text">made by minotaur</div>
 
-<button id="followButton">proxy_minotaurをフォロー</button>
+    <button id="followButton">proxy_minotaurをフォロー</button>
 
-<!-- 新しい about:blank ボタン -->
-<button id="aboutBlankButton" onclick="openAboutBlank()">about:blankを開く</button>
+    <!-- 新しい about:blank ボタン -->
+    <button id="aboutBlankButton" onclick="openAboutBlank()">about:blankを開く</button>
+</div>
 
 <script>
     document.getElementById('followButton').onclick = function() {
