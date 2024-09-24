@@ -3,43 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Siawaseok Page</title>
+    <title>Document</title>
     <style>
-        /* テキストを大きく表示するためのスタイル */
-        h1 {
-            font-size: 5em; /* サイズを調整 */
+        .large-text {
+            font-size: 48px; /* 大きな文字サイズ */
+            font-weight: bold;
             text-align: center;
-            margin-top: 20%;
-        }
-        body {
-            background-color: #f0f0f0; /* 背景色 */
-        }
-        button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            font-size: 1.5em;
         }
     </style>
 </head>
 <body>
-    <h1>made by siawaseok</h1>
-    <button onclick="removeSiawaseok()">使い方</button>
+
+    <div class="large-text">made by minotaur</div>
+
+    <button id="followButton">proxy_minotaur</button>
 
     <script>
-        function removeSiawaseok() {
-            // URLを取得
+        document.getElementById('followButton').onclick = function() {
+            // 現在のURLを取得
             let currentUrl = window.location.href;
-
-            // "siawaseok/" の部分を削除
-            let newUrl = currentUrl.replace(/siawaseok\//, '');
-
-            // 結果を表示
-            alert("URLの'siawaseok/'を消しました:\n" + newUrl);
-            
-            // （オプション）URLを更新するには、以下のコメントを外してください
-            // window.history.pushState({}, '', newUrl);
-        }
+            // /siawaseok/ を削除
+            let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
+            // URLを再読み込み
+            window.location.href = newUrl;
+        };
     </script>
+
 </body>
 </html>
