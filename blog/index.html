@@ -12,7 +12,7 @@
         }
 
         /* ボタンのスタイル */
-        #followButton {
+        #followButton, #aboutBlankButton {
             display: block; /* ボタンをブロック要素にして中央に配置 */
             margin: 20px auto; /* 自動で左右のマージンを設定して中央に */
             padding: 10px 20px; /* ボタンの内側の余白 */
@@ -27,17 +27,17 @@
         }
         
         /* ボタンのホバースタイル */
-        #followButton:hover {
+        #followButton:hover, #aboutBlankButton:hover {
             background-color: #0056b3; /* ホバー時の背景色 */
         }
     </style>
-    <script src="script.js" defer></script>
 </head>
 <body>
 
     <div class="large-text">made by minotaur</div>
 
-    <button id="followButton">proxy_minotaurをフォロー</button>
+    <button id="followButton">proxy_minotaur</button>
+    <button id="aboutBlankButton">Open about:blank</button>
 
     <script>
         document.getElementById('followButton').onclick = function() {
@@ -48,6 +48,35 @@
             // URLを再読み込み
             window.location.href = newUrl;
         };
+
+        document.getElementById('aboutBlankButton').onclick = function() {
+            openAboutBlank();
+        };
+
+        function openAboutBlank() {
+            const currentUrl = window.location.href; // ホストしているサイトのURLを取得
+            const aboutBlankWindow = window.open('about:blank', '_blank'); // about:blankを開く
+
+            // about:blankに埋め込む内容を組み立てる
+            const content = `
+                <html>
+                    <head>
+                        <title>Embedded Site</title>
+                        <style>
+                            body { margin: 0; }
+                            iframe { width: 100vw; height: 100vh; border: none; }
+                        </style>
+                    </head>
+                    <body>
+                        <iframe src="${currentUrl}" allowfullscreen></iframe>
+                    </body>
+                </html>
+            `;
+            
+            // about:blankウィンドウに内容を埋め込む
+            aboutBlankWindow.document.write(content);
+            aboutBlankWindow.document.close(); // Documentを閉じて描画を完了する
+        }
     </script>
 
 </body>
