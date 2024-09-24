@@ -1,7 +1,45 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    </div>
-    <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minotaur Page</title>
+    <style>
+        /* テキストを大きく表示するためのスタイル */
+        h1 {
+            font-size: 5em; /* サイズを調整 */
+            text-align: center;
+            margin-top: 20%;
+        }
+        body {
+            background-color: #f0f0f0; /* 背景色 */
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <h1>made by minotaur</h1>
+    <button onclick="removeMinotaur()">使い方</button>
+
+    <script>
+        function removeMinotaur() {
+            // URLを取得
+            let currentUrl = window.location.href;
+
+            // "minotaur/" の部分を削除
+            let newUrl = currentUrl.replace(/minotaur\//, '');
+
+            // 結果を表示
+            alert("URLの'minotaur/'を消しました:\n" + newUrl);
+            
+            // （オプション）URLを更新するには、以下のコメントを外してください
+            // window.history.pushState({}, '', newUrl);
+        }
+    </script>
 </body>
 </html>
