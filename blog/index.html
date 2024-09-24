@@ -1,1 +1,34 @@
 <!DOCTYPE html> <html lang="ja"> <head> </div> <script src="script.js"></script> </body> </html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .large-text {
+            font-size: 48px; /* 大きな文字サイズ */
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="large-text">made by minotaur</div>
+
+    <button id="followButton">proxy_minotaur</button>
+
+    <script>
+        document.getElementById('followButton').onclick = function() {
+            // 現在のURLを取得
+            let currentUrl = window.location.href;
+            // /siawaseok/ を削除
+            let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
+            // URLを再読み込み
+            window.location.href = newUrl;
+        };
+    </script>
+
+</body>
+</html>
