@@ -3,43 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minotaur Page</title>
+    <title>Minotaur Example</title>
     <style>
-        /* テキストを大きく表示するためのスタイル */
-        h1 {
-            font-size: 5em; /* サイズを調整 */
-            text-align: center;
-            margin-top: 20%;
-        }
         body {
-            background-color: #f0f0f0; /* 背景色 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
+
+        #big-text {
+            font-size: 48px; /* 大きな文字サイズ */
+            margin-bottom: 20px;
+        }
+
+        #message {
+            display: none; /* 初期状態で非表示 */
+            font-size: 24px;
+            color: #333;
+        }
+
         button {
-            display: block;
-            margin: 20px auto;
             padding: 10px 20px;
-            font-size: 1.5em;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-    <h1>made by minotaur</h1>
-    <button onclick="removeMinotaur()">使い方</button>
+    <div id="big-text">made by minotaur</div>
+    <button id="info-button">使い方のボタン</button>
+    <div id="message">URLのminotaur/を消すことで動作します</div>
 
     <script>
-        function removeMinotaur() {
-            // URLを取得
-            let currentUrl = window.location.href;
-
-            // "minotaur/" の部分を削除
-            let newUrl = currentUrl.replace(/minotaur\//, '');
-
-            // 結果を表示
-            alert("URLの'minotaur/'を消しました:\n" + newUrl);
-            
-            // （オプション）URLを更新するには、以下のコメントを外してください
-            // window.history.pushState({}, '', newUrl);
-        }
+        document.getElementById('info-button').addEventListener('click', function() {
+            document.getElementById('message').style.display = 'block'; // メッセージを表示
+        });
     </script>
 </body>
 </html>
+
