@@ -23,14 +23,13 @@
         }
 
         /* ボタンのスタイル */
-        #followButton {
+        #followButton, #aboutBlankButton {
             display: block; /* ボタンをブロック要素にして中央に配置 */
             margin: 20px auto; /* 自動で左右のマージンを設定して中央に */
             padding: 10px 20px; /* ボタンの内側の余白 */
             font-size: 24px; /* ボタンのフォントサイズ */
             font-weight: bold; /* ボタンのフォントを太字に */
             color: white; /* テキストの色 */
-            background-color: #007BFF; /* ボタン背景色 */
             border: none; /* ボーダーを無くす */
             border-radius: 5px; /* 角を丸くする */
             cursor: pointer; /* カーソルをポインターに */
@@ -42,24 +41,28 @@
             background-color: #0056b3; /* ホバー時の背景色 */
         }
 
-        /* 新しいボタンのスタイル */
         #aboutBlankButton {
-            display: block; /* ボタンをブロック要素にして中央に配置 */
-            margin: 20px auto; /* 自動で左右のマージンを設定して中央に */
-            padding: 10px 20px; /* ボタンの内側の余白 */
-            font-size: 24px; /* ボタンのフォントサイズ */
-            font-weight: bold; /* ボタンのフォントを太字に */
-            color: white; /* テキストの色 */
             background-color: #28a745; /* ボタン背景色 */
-            border: none; /* ボーダーを無くす */
-            border-radius: 5px; /* 角を丸くする */
-            cursor: pointer; /* カーソルをポインターに */
-            transition: background-color 0.3s; /* ホバー時の色変化 */
         }
 
-        /* 新しいボタンのホバースタイル */
         #aboutBlankButton:hover {
             background-color: #218838; /* ホバー時の背景色 */
+        }
+
+        .blog-section {
+            background-color: rgba(255, 255, 255, 0.9); /* 白色の背景 */
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+        }
+
+        .comments {
+            margin-top: 20px;
+        }
+
+        .comment {
+            border-bottom: 1px solid #ccc;
+            padding: 5px 0;
         }
     </style>
     <script src="script.js" defer></script>
@@ -69,25 +72,29 @@
 <div class="large-text">made by minotaur</div>
 
 <button id="followButton">proxy_minotaurをフォロー</button>
-
-<!-- 新しい about:blank ボタン -->
 <button id="aboutBlankButton" onclick="openAboutBlank()">about:blankを開く</button>
+
+<div class="blog-section">
+    <h2>ブログセクション</h2>
+    <p>ここでは、さまざまな内容について話し合ったり、意見を共有したりできます。お気軽にコメントを残してください！</p>
+    <div class="comments">
+        <input type="text" id="nameInput" placeholder="名前を入力" />
+        <textarea id="commentInput" placeholder="コメントを入力" rows="4"></textarea>
+        <button id="submitComment">コメントを送信</button>
+        <div id="commentList"></div>
+    </div>
+</div>
 
 <script>
     document.getElementById('followButton').onclick = function() {
-        // 現在のURLを取得
         let currentUrl = window.location.href;
-        // /siawaseok/ を削除
         let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
-        // URLを再読み込み
         window.location.href = newUrl;
     };
 
     function openAboutBlank() {
-        const currentUrl = window.location.href; // ホストしているサイトのURLを取得
-        const aboutBlankWindow = window.open('about:blank', '_blank'); // about:blankを開く
-
-        // about:blankに埋め込む内容を組み立てる
+        const currentUrl = window.location.href;
+        const aboutBlankWindow = window.open('about:blank', '_blank');
         const content = `
             <html>
                 <head>
@@ -102,13 +109,28 @@
                 </body>
             </html>
         `;
-
-        // new windowが準備できるまで少し待機させる
         setTimeout(() => {
             aboutBlankWindow.document.write(content);
-            aboutBlankWindow.document.close(); // Documentを閉じて描画を完了する
-        }, 100); // 100ミリ秒待ってから内容を埋め込む
+            aboutBlankWindow.document.close();
+        }, 100);
     }
+
+    document.getElementById('submitComment').onclick = function() {
+        const name = document.getElementById('nameInput').value;
+        const comment = document.getElementById('commentInput').value;
+        if (name && comment) {
+            const commentList = document.getElementById('commentList');
+            const newComment = document.createElement('div');
+            newComment.classList.add('comment');
+            newComment.textContent = `${name}: ${comment}`;
+            commentList.appendChild(newComment);
+            document.getElementById('nameInput').value = '';
+            document.getElementById('commentInput').value = '';
+        } else {
+            alert('名前とコメントを入力してください。');
+        }
+    };
 </script>
 </body>
 </html>
+
