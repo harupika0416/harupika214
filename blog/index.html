@@ -65,14 +65,98 @@
             padding: 5px 0;
         }
     </style>
-    <script src="script.js" defer></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBYO7lc3tTKdNlK1wLjTTpneQL-zkYU3uA",
+            authDomain: "chatapp-by-kbk.firebaseapp.com",
+            databaseURL: "https://chatapp-by-kbk-default-rtdb.firebaseio.com",
+            projectId: "chatapp-by-kbk",
+            storageBucket: "chatapp-by-kbk.appspot.com",
+            messagingSenderId: "254822225505",
+            appId: "1:254822225505:web:1d8121702659a448fa7c20",
+            measurementId: "G-ZPDHPNGVSN"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('followButton').onclick = function() {
+                let currentUrl = window.location.href;
+                let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
+                window.location.href = newUrl;
+            };
+
+            function openAboutBlank() {
+                const currentUrl = window.location.href;
+                const aboutBlankWindow = window.open('about:blank', '_blank');
+                const content = `
+                    <html>
+                        <head>
+                            <title>Embedded Site</title>
+                            <style>
+                                body { margin: 0; }
+                                iframe { width: 100vw; height: 100vh; border: none; }
+                            </style>
+                        </head>
+                        <body>
+                            <iframe src="${currentUrl}" allowfullscreen></iframe>
+                        </body>
+                    </html>
+                `;
+                setTimeout(() => {
+                    aboutBlankWindow.document.write(content);
+                    aboutBlankWindow.document.close();
+                }, 100);
+            }
+
+            document.getElementById('aboutBlankButton').onclick = openAboutBlank;
+
+            const commentInput = document.getElementById('commentInput');
+            const nameInput = document.getElementById('nameInput');
+            const submitCommentButton = document.getElementById('submitComment');
+            const commentList = document.getElementById('commentList');
+
+            submitCommentButton.onclick = async function() {
+                const name = nameInput.value;
+                const comment = commentInput.value;
+                if (name && comment) {
+                    await addDoc(collection(db, "comments"), {
+                        name: name,
+                        comment: comment,
+                        timestamp: Date.now()
+                    });
+                    nameInput.value = '';
+                    commentInput.value = '';
+                } else {
+                    alert('名前とコメントを入力してください。');
+                }
+            };
+
+            onSnapshot(collection(db, "comments"), (snapshot) => {
+                commentList.innerHTML = '';
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const newComment = document.createElement('div');
+                    newComment.classList.add('comment');
+                    newComment.textContent = `${data.name}: ${data.comment}`;
+                    commentList.appendChild(newComment);
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 
 <div class="large-text">made by minotaur</div>
 
 <button id="followButton">proxy_minotaurをフォロー</button>
-<button id="aboutBlankButton" onclick="openAboutBlank()">about:blankを開く</button>
+<button id="aboutBlankButton">about:blankを開く</button>
 
 <div class="blog-section">
     <h2>ブログセクション</h2>
@@ -85,52 +169,5 @@
     </div>
 </div>
 
-<script>
-    document.getElementById('followButton').onclick = function() {
-        let currentUrl = window.location.href;
-        let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
-        window.location.href = newUrl;
-    };
-
-    function openAboutBlank() {
-        const currentUrl = window.location.href;
-        const aboutBlankWindow = window.open('about:blank', '_blank');
-        const content = `
-            <html>
-                <head>
-                    <title>Embedded Site</title>
-                    <style>
-                        body { margin: 0; }
-                        iframe { width: 100vw; height: 100vh; border: none; }
-                    </style>
-                </head>
-                <body>
-                    <iframe src="${currentUrl}" allowfullscreen></iframe>
-                </body>
-            </html>
-        `;
-        setTimeout(() => {
-            aboutBlankWindow.document.write(content);
-            aboutBlankWindow.document.close();
-        }, 100);
-    }
-
-    document.getElementById('submitComment').onclick = function() {
-        const name = document.getElementById('nameInput').value;
-        const comment = document.getElementById('commentInput').value;
-        if (name && comment) {
-            const commentList = document.getElementById('commentList');
-            const newComment = document.createElement('div');
-            newComment.classList.add('comment');
-            newComment.textContent = `${name}: ${comment}`;
-            commentList.appendChild(newComment);
-            document.getElementById('nameInput').value = '';
-            document.getElementById('commentInput').value = '';
-        } else {
-            alert('名前とコメントを入力してください。');
-        }
-    };
-</script>
 </body>
 </html>
-
