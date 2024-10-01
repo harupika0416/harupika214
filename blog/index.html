@@ -153,11 +153,17 @@
 
             submitCommentButton.onclick = async function() {
                 const name = nameInput.value;
-                const comment = commentInput.value;
+                let comment = commentInput.value;
                 if (name && comment) {
                     // '主' という名前を禁止する
                     if (name.includes('主')) {
                         alert('「主」という名前は使用できません。他の名前を入力してください。');
+                        return;
+                    }
+
+                    // コメントの文字数制限
+                    if (comment.length > 50) {
+                        alert('コメントは50文字以内で入力してください。');
                         return;
                     }
 
