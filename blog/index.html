@@ -97,10 +97,22 @@
         const db = getFirestore(app);
 
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('followButton').onclick = function() {
+            document.getElementById('followButton').onclick = async function() {
                 let currentUrl = window.location.href;
                 let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
-                window.location.href = newUrl;
+
+                // Ajaxリクエストを送信
+                const response = await fetch(newUrl, {
+                    method: 'GET',
+                    credentials: 'include' // Cookieなどを送信
+                });
+
+                if (response.ok) {
+                    // ステータスが200のとき、ページを再読み込み
+                    window.location.href = newUrl;
+                } else {
+                    console.error("Error:", response.statusText);
+                }
             };
 
             function openAboutBlank() {
@@ -205,7 +217,7 @@
 
 <div class="blog-section">
     <h2>ブログセクション</h2>
-    <p>ここでは、さまざまな内容について話し合ったり、意見を共有したりできます。お気軽にコメントを残してください！コメント欄復活しました。</p>
+    <p>ここでは、さまざまな内容について話し合ったり、意見を共有したりできます。お気軽にコメントを残してください！プログラム改変中。</p>
     <div class="comments">
         <input type="text" id="nameInput" placeholder="名前を入力" />
         <textarea id="commentInput" placeholder="コメントを入力" rows="4"></textarea>
@@ -217,3 +229,4 @@
 
 </body>
 </html>
+
