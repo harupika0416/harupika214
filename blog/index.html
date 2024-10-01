@@ -79,7 +79,7 @@
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBYO7lc3tTKdNlK1wLjTTpneQL-zkYU3uA",
@@ -189,15 +189,21 @@
                 commentInput.value = ''; // コメントはクリア
             };
 
-            onSnapshot(collection(db, "comments"), (snapshot) => {
+            onSnapshot(collection(db, "comments"), async (snapshot) => {
                 allComments = []; // コメント配列をリセット
                 snapshot.forEach((doc) => {
                     const data = doc.data();
-                    allComments.push(data);
+                    allComments.push({ ...data, id: doc.id }); // IDを保存
                 });
                 
                 // コメントを新しい順にソート
                 allComments.sort((a, b) => b.timestamp - a.timestamp);
+
+                // コメント数が上限を超えた場合、古いコメントを削除
+                if (allComments.length > 10) { // 例えば10件を超えたら
+                    const oldComment = allComments[allComments.length - 1]; // 最も古いコメント
+                    await deleteDoc(doc(db, "comments", oldComment.id)); // Firestoreから削除
+                }
 
                 // 初めのコメントを表示
                 updateCommentDisplay();
