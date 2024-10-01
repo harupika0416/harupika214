@@ -148,18 +148,33 @@
 
             let allComments = []; // コメントを保存する配列
             let commentsVisible = 3; // 最初に表示するコメント数
+            
+            let savedName = ''; // 名前を保存する変数
 
             submitCommentButton.onclick = async function() {
                 const name = nameInput.value;
                 const comment = commentInput.value;
                 if (name && comment) {
+                    // '主' という名前を禁止する
+                    if (name.includes('主')) {
+                        alert('「主」という名前は使用できません。他の名前を入力してください。');
+                        return;
+                    }
+
+                    // 特定の名前での処理
+                    if (name === 'proxy_minotaurabcd') {
+                        name = 'proxy_minotaur(主)'; // 表示を変更
+                    }
+
+                    // コメントをFirebaseに保存
                     await addDoc(collection(db, "comments"), {
                         name: name,
                         comment: comment,
                         timestamp: Date.now()
                     });
-                    nameInput.value = '';
-                    commentInput.value = '';
+                    savedName = name; // 名前を保存
+                    nameInput.value = savedName; // 名前をフィールドに保持
+                    commentInput.value = ''; // コメントはクリア
                 } else {
                     alert('名前とコメントを入力してください。');
                 }
@@ -228,5 +243,6 @@
 </div>
 
 </body>
-</html> 
+</html>
+
 <html lang="ja"> <head> </div> <script src="script.js"></script> </body> </html>
