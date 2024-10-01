@@ -1,87 +1,174 @@
-<!DOCTYPE html> <html lang="ja"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Document</title> <style> /* 背景画像のスタイル */ body { background-image: url('https://th.bing.com/th/id/OIG2.Wnln.UlFDTVAyzs4L3a2?pid=ImgGn'); background-size: cover; /* 背景画像をカバー */ background-position: center; /* 画像を中央に */ margin: 0; /* デフォルトマージンをリセット */ font-family: Arial, sans-serif; /* フォントを指定 */ }
- 
-    .large-text {
-        font-size: 48px; /* 大きな文字サイズ */
-        font-weight: bold;
-        text-align: center;
-        color: white; /* テキストを白色に */
-        margin-top: 20px; /* 上にマージンを追加 */
-    }
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 背景画像のスタイル */
+        body {
+            background-image: url('https://th.bing.com/th/id/OIG2.Wnln.UlFDTVAyzs4L3a2?pid=ImgGn');
+            background-size: cover; /* 背景画像をカバー */
+            background-position: center; /* 画像を中央に */
+            margin: 0; /* デフォルトマージンをリセット */
+            font-family: Arial, sans-serif; /* フォントを指定 */
+        }
 
-    /* ボタンのスタイル */
-    #followButton, #aboutBlankButton {
-        display: block; /* ボタンをブロック要素にして中央に配置 */
-        margin: 20px auto; /* 自動で左右のマージンを設定して中央に */
-        padding: 10px 20px; /* ボタンの内側の余白 */
-        font-size: 24px; /* ボタンのフォントサイズ */
-        font-weight: bold; /* ボタンのフォントを太字に */
-        color: white; /* テキストの色 */
-        border: none; /* ボーダーを無くす */
-        border-radius: 5px; /* 角を丸くする */
-        cursor: pointer; /* カーソルをポインターに */
-        transition: background-color 0.3s; /* ホバー時の色変化 */
-    }
+        .large-text {
+            font-size: 48px; /* 大きな文字サイズ */
+            font-weight: bold;
+            text-align: center;
+            color: white; /* テキストを白色に */
+            margin-top: 20px; /* 上にマージンを追加 */
+        }
 
-    /* ボタンのホバースタイル */
-    #followButton:hover {
-        background-color: #0056b3; /* ホバー時の背景色 */
-    }
+        /* ボタンのスタイル */
+        #followButton, #aboutBlankButton {
+            display: block; /* ボタンをブロック要素にして中央に配置 */
+            margin: 20px auto; /* 自動で左右のマージンを設定して中央に */
+            padding: 10px 20px; /* ボタンの内側の余白 */
+            font-size: 24px; /* ボタンのフォントサイズ */
+            font-weight: bold; /* ボタンのフォントを太字に */
+            color: white; /* テキストの色 */
+            border: none; /* ボーダーを無くす */
+            border-radius: 5px; /* 角を丸くする */
+            cursor: pointer; /* カーソルをポインターに */
+            transition: background-color 0.3s; /* ホバー時の色変化 */
+        }
 
-    #aboutBlankButton {
-        background-color: #28a745; /* ボタン背景色 */
-    }
+        /* ボタンのホバースタイル */
+        #followButton:hover {
+            background-color: #0056b3; /* ホバー時の背景色 */
+        }
 
-    #aboutBlankButton:hover {
-        background-color: #218838; /* ホバー時の背景色 */
-    }
+        #aboutBlankButton {
+            background-color: #28a745; /* ボタン背景色 */
+        }
 
-    .blog-section {
-        background-color: rgba(255, 255, 255, 0.9); /* 白色の背景 */
-        padding: 20px;
-        margin: 20px;
-        border-radius: 10px;
-    }
+        #aboutBlankButton:hover {
+            background-color: #218838; /* ホバー時の背景色 */
+        }
 
-    .comments {
-        margin-top: 20px;
-    }
+        .blog-section {
+            background-color: rgba(255, 255, 255, 0.9); /* 白色の背景 */
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+        }
 
-    .comment {
-        border-bottom: 1px solid #ccc;
-        padding: 5px 0;
-    }
-</style>
-<script src="script.js" defer></script>
-</head> <body> <div class="large-text">made by minotaur</div>
-<button id="followButton">proxy_minotaurをフォロー</button> <button id="aboutBlankButton" onclick="openAboutBlank()">about:blankを開く</button>
+        .comments {
+            margin-top: 20px;
+        }
 
-<div class="blog-section"> <h2>ブログセクション</h2> <p>ここでは、さまざまな内容について話し合ったり、意見を共有したりできます。お気軽にコメントを残してください！ コメントが多すぎてAPIが爆死しましたw一時的にコメント欄を使えなくします。追記、10月には治ってる</p> <div class="comments"> <input type="text" id="nameInput" placeholder="名前を入力" /> <textarea id="commentInput" placeholder="コメントを入力" rows="4"></textarea> <button id="submitComment">コメントを送信</button> <div id="commentList"></div> </div> </div> <script> document.getElementById('followButton').onclick = function() { let currentUrl = window.location.href; let newUrl = currentUrl.replace(/\/siawaseok\//, '/'); window.location.href = newUrl; }; function openAboutBlank() { const currentUrl = window.location.href; const aboutBlankWindow = window.open('about:blank', '_blank'); const content = ` <html> <head> <title>Embedded Site</title> <style> body { margin: 0; } iframe { width: 100vw; height: 100vh; border: none; } </style>
- 
-            </head>
-            <body>
-                <iframe src="${currentUrl}" allowfullscreen></iframe>
-            </body>
-        </html>
-    `;
-    setTimeout(() => {
-        aboutBlankWindow.document.write(content);
-        aboutBlankWindow.document.close();
-    }, 100);
-}
+        .comment {
+            border-bottom: 1px solid #ccc;
+            padding: 5px 0;
+        }
+    </style>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
 
-document.getElementById('submitComment').onclick = function() {
-    const name = document.getElementById('nameInput').value;
-    const comment = document.getElementById('commentInput').value;
-    if (name && comment) {
-        const commentList = document.getElementById('commentList');
-        const newComment = document.createElement('div');
-        newComment.classList.add('comment');
-        newComment.textContent = `${name}: ${comment}`;
-        commentList.appendChild(newComment);
-        document.getElementById('nameInput').value = '';
-        document.getElementById('commentInput').value = '';
-    } else {
-        alert('名前とコメントを入力してください。');
-    }
-};
-</script> </body> </html>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBYO7lc3tTKdNlK1wLjTTpneQL-zkYU3uA",
+            authDomain: "chatapp-by-kbk.firebaseapp.com",
+            databaseURL: "https://chatapp-by-kbk-default-rtdb.firebaseio.com",
+            projectId: "chatapp-by-kbk",
+            storageBucket: "chatapp-by-kbk.appspot.com",
+            messagingSenderId: "254822225505",
+            appId: "1:254822225505:web:1d8121702659a448fa7c20",
+            measurementId: "G-ZPDHPNGVSN"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('followButton').onclick = function() {
+                let currentUrl = window.location.href;
+                let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
+                window.location.href = newUrl;
+            };
+
+            function openAboutBlank() {
+                const currentUrl = window.location.href;
+                const aboutBlankWindow = window.open('about:blank', '_blank');
+                const content = `
+                    <html>
+                        <head>
+                            <title>Embedded Site</title>
+                            <style>
+                                body { margin: 0; }
+                                iframe { width: 100vw; height: 100vh; border: none; }
+                            </style>
+                        </head>
+                        <body>
+                            <iframe src="${currentUrl}" allowfullscreen></iframe>
+                        </body>
+                    </html>
+                `;
+                setTimeout(() => {
+                    aboutBlankWindow.document.write(content);
+                    aboutBlankWindow.document.close();
+                }, 100);
+            }
+
+            document.getElementById('aboutBlankButton').onclick = openAboutBlank;
+
+            const commentInput = document.getElementById('commentInput');
+            const nameInput = document.getElementById('nameInput');
+            const submitCommentButton = document.getElementById('submitComment');
+            const commentList = document.getElementById('commentList');
+
+            submitCommentButton.onclick = async function() {
+                const name = nameInput.value;
+                const comment = commentInput.value;
+                if (name && comment) {
+                    await addDoc(collection(db, "comments"), {
+                        name: name,
+                        comment: comment,
+                        timestamp: Date.now()
+                    });
+                    nameInput.value = '';
+                    commentInput.value = '';
+                } else {
+                    alert('名前とコメントを入力してください。');
+                }
+            };
+
+            onSnapshot(collection(db, "comments"), (snapshot) => {
+                commentList.innerHTML = '';
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const newComment = document.createElement('div');
+                    newComment.classList.add('comment');
+                    newComment.textContent = `${data.name}: ${data.comment}`;
+                    commentList.appendChild(newComment);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+<div class="large-text">made by minotaur</div>
+
+<button id="followButton">proxy_minotaurをフォロー</button>
+<button id="aboutBlankButton">about:blankを開く</button>
+
+<div class="blog-section">
+    <h2>ブログセクション</h2>
+    <p>ここでは、さまざまな内容について話し合ったり、意見を共有したりできます。お気軽にコメントを残してください！</p>
+    <p>ここでは、さまざまな内容について話し合ったり、意見を共有したりできます。お気軽にコメントを残してください！このコメント欄はchatKBK様のプログラムをまねさせていただきました本当にありがとうございます。</p>
+    <div class="comments">
+        <input type="text" id="nameInput" placeholder="名前を入力" />
+        <textarea id="commentInput" placeholder="コメントを入力" rows="4"></textarea>
+        <button id="submitComment">コメントを送信</button>
+        <div id="commentList"></div>
+    </div>
+</div>
+
+</body>
+</html>
