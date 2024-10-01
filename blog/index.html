@@ -200,7 +200,7 @@
                 allComments.sort((a, b) => b.timestamp - a.timestamp);
 
                 // コメント数が上限を超えた場合、古いコメントを削除
-                if (allComments.length > 10) { // 例えば10件を超えたら
+                if (allComments.length > 100) { // 例えば10件を超えたら
                     const oldComment = allComments[allComments.length - 1]; // 最も古いコメント
                     await deleteDoc(doc(db, "comments", oldComment.id)); // Firestoreから削除
                 }
