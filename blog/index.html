@@ -169,6 +169,7 @@
             let commentsVisible = 3; // 最初に表示するコメント数
             
             let savedName = ''; // 名前を保存する変数
+            let isCommentClosed = false; // コメント欄が閉鎖されたかのフラグ
 
             submitCommentButton.onclick = async function() {
                 let name = nameInput.value.trim();
@@ -203,21 +204,27 @@
                     name = 'proxy_minotaur(主)'; // 表示を変更
                 }
 
+                if (isCommentClosed && name !== savedName) {
+                    alert('コメント欄は閉鎖中です。');
+                    return;
+                }
+
                 // コメントをFirebaseに保存
                 await addDoc(collection(db, "comments"), {
                     name: name,
                     comment: comment,
-                    timestamp: Date.now()
+                    timestamp: Date.now(),
+                    owner: name === savedName // コメントの所有者かどうかのフラグを追加
                 });
                 savedName = name; // 名前を保存
                 nameInput.value = savedName; // 名前をフィールドに保持
                 commentInput.value = ''; // コメントはクリア
 
                 // コメントが追加された後、すべてのコメントを再表示
-                allComments.push({ name, comment, timestamp: Date.now() });
+                allComments.push({ name, comment, timestamp: Date.now(), owner: true });
                 updateCommentDisplay();
             };
-
+            
             onSnapshot(collection(db, "comments"), async (snapshot) => {
                 allComments = []; // コメント配列をリセット
                 const now = Date.now();
@@ -263,7 +270,11 @@
                 if (password === 'sikaku') { // ここでパスワードをチェック
                     const commentsSnapshot = await getDocs(collection(db, "comments"));
                     commentsSnapshot.forEach(async (doc) => {
-                        await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
+                        const data = doc.data();
+                        // コメントを所有者以外が作成した場合は削除
+                        if (!data.owner) {
+                            await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
+                        }
                     });
                     updateCommentDisplay(); // コメント表示を更新
                     passwordInput.value = ''; // パスワード入力フィールドをクリア
@@ -282,7 +293,11 @@
                     const deleteInterval = setInterval(async () => {
                         const commentsSnapshot = await getDocs(collection(db, "comments"));
                         commentsSnapshot.forEach(async (doc) => {
-                            await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
+                            const data = doc.data();
+                            // コメントを所有者以外が作成した場合は削除
+                            if (!data.owner) {
+                                await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
+                            }
                         });
                         // コメント表示を更新
                         updateCommentDisplay();
@@ -307,10 +322,22 @@
                 commentsToDisplay.forEach((data) => {
                     const newComment = document.createElement('div');
                     newComment.classList.add('comment');
-                    newComment.textContent = `${data.name}: ${data.comment}`;
+
+                    if (isCommentClosed && !data.owner) {
+                        newComment.textContent = `${data.name}: このコメントは閉鎖されたコメント欄からのものです。`;
+                    } else {
+                        newComment.textContent = `${data.name}: ${data.comment}`;
+                    }
+
                     commentList.appendChild(newComment);
                 });
             }
+
+            // コメント欄を閉鎖するボタンの機能
+            document.getElementById('emergencyButton').onclick = function() {
+                isCommentClosed = true; // コメント欄を閉鎖
+                alert('コメント欄は閉鎖されました。');
+            };
         });
     </script>
 </head>
@@ -320,7 +347,7 @@
 
 <button id="followButton">proxy_minotaurをフォロー</button>
 <button id="aboutBlankButton">about:blankを開く</button>
-<button id="emergencyButton">主専用　コメント欄を閉鎖</button>
+<button id="emergencyButton">コメント欄を閉鎖</button>
 
 <div class="blog-section">
     <h2>ブログセクション</h2>
@@ -342,5 +369,6 @@
 
 </body>
 </html>
+
 
 <html lang="ja"> <head> </div> <script src="script.js"></script> </body> </html>
