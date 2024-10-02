@@ -187,23 +187,31 @@
                 savedName = name; // 名前を保存
                 nameInput.value = savedName; // 名前をフィールドに保持
                 commentInput.value = ''; // コメントはクリア
+
+                // コメントが追加された後、すべてのコメントを再表示
+                allComments.push({ name, comment, timestamp: Date.now() });
+                updateCommentDisplay();
             };
 
             onSnapshot(collection(db, "comments"), async (snapshot) => {
                 allComments = []; // コメント配列をリセット
-                snapshot.forEach((doc) => {
+                const now = Date.now();
+                const oneDayInMillis = 24 * 60 * 60 * 1000; // 1日のミリ秒
+
+                for (const doc of snapshot.docs) {
                     const data = doc.data();
-                    allComments.push({ ...data, id: doc.id }); // IDを保存
-                });
-                
+                    const commentTimestamp = data.timestamp;
+
+                    // もしコメントが1日以上古い場合は削除
+                    if (now - commentTimestamp >= oneDayInMillis) {
+                        await deleteDoc(doc.ref); // Firestoreから削除
+                    } else {
+                        allComments.push({ ...data, id: doc.id }); // IDを保存
+                    }
+                }
+
                 // コメントを新しい順にソート
                 allComments.sort((a, b) => b.timestamp - a.timestamp);
-
-                // コメント数が上限を超えた場合、古いコメントを削除
-                if (allComments.length > 100) { // 例えば10件を超えたら
-                    const oldComment = allComments[allComments.length - 1]; // 最も古いコメント
-                    await deleteDoc(doc(db, "comments", oldComment.id)); // Firestoreから削除
-                }
 
                 // 初めのコメントを表示
                 updateCommentDisplay();
