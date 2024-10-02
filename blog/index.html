@@ -90,7 +90,6 @@
         }
     </style>
     <script type="module">
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
 
@@ -113,7 +112,7 @@
             document.getElementById('followButton').onclick = async function() {
                 let currentUrl = window.location.href;
                 let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
-
+                
                 // Ajaxリクエストを送信
                 const response = await fetch(newUrl, {
                     method: 'GET',
@@ -169,7 +168,6 @@
             let commentsVisible = 3; // 最初に表示するコメント数
             
             let savedName = ''; // 名前を保存する変数
-            let isCommentClosed = false; // コメント欄が閉鎖されたかのフラグ
 
             submitCommentButton.onclick = async function() {
                 let name = nameInput.value.trim();
@@ -204,27 +202,21 @@
                     name = 'proxy_minotaur(主)'; // 表示を変更
                 }
 
-                if (isCommentClosed && name !== savedName) {
-                    alert('コメント欄は閉鎖中です。');
-                    return;
-                }
-
                 // コメントをFirebaseに保存
                 await addDoc(collection(db, "comments"), {
                     name: name,
                     comment: comment,
-                    timestamp: Date.now(),
-                    owner: name === savedName // コメントの所有者かどうかのフラグを追加
+                    timestamp: Date.now()
                 });
                 savedName = name; // 名前を保存
                 nameInput.value = savedName; // 名前をフィールドに保持
                 commentInput.value = ''; // コメントはクリア
 
                 // コメントが追加された後、すべてのコメントを再表示
-                allComments.push({ name, comment, timestamp: Date.now(), owner: true });
+                allComments.push({ name, comment, timestamp: Date.now() });
                 updateCommentDisplay();
             };
-            
+
             onSnapshot(collection(db, "comments"), async (snapshot) => {
                 allComments = []; // コメント配列をリセット
                 const now = Date.now();
@@ -235,7 +227,8 @@
                     const commentTimestamp = data.timestamp;
 
                     // もしコメントが1日以上古い場合は削除
-                    if (now - commentTimestamp >= oneDayInMillis) {
+                    // ただし、名前が「proxy_minotaur(主)」の場合は削除しない
+                    if (now - commentTimestamp >= oneDayInMillis && data.name !== 'proxy_minotaur(主)') {
                         await deleteDoc(doc.ref); // Firestoreから削除
                     } else {
                         allComments.push({ ...data, id: doc.id }); // IDを保存
@@ -271,8 +264,9 @@
                     const commentsSnapshot = await getDocs(collection(db, "comments"));
                     commentsSnapshot.forEach(async (doc) => {
                         const data = doc.data();
-                        // コメントを所有者以外が作成した場合は削除
-                        if (!data.owner) {
+
+                        // コメントの名前が「proxy_minotaur(主)」の場合は削除しない
+                        if (data.name !== 'proxy_minotaur(主)') {
                             await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
                         }
                     });
@@ -294,8 +288,9 @@
                         const commentsSnapshot = await getDocs(collection(db, "comments"));
                         commentsSnapshot.forEach(async (doc) => {
                             const data = doc.data();
-                            // コメントを所有者以外が作成した場合は削除
-                            if (!data.owner) {
+
+                            // コメントの名前が「proxy_minotaur(主)」の場合は削除しない
+                            if (data.name !== 'proxy_minotaur(主)') {
                                 await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
                             }
                         });
@@ -322,22 +317,10 @@
                 commentsToDisplay.forEach((data) => {
                     const newComment = document.createElement('div');
                     newComment.classList.add('comment');
-
-                    if (isCommentClosed && !data.owner) {
-                        newComment.textContent = `${data.name}: このコメントは閉鎖されたコメント欄からのものです。`;
-                    } else {
-                        newComment.textContent = `${data.name}: ${data.comment}`;
-                    }
-
+                    newComment.textContent = `${data.name}: ${data.comment}`;
                     commentList.appendChild(newComment);
                 });
             }
-
-            // コメント欄を閉鎖するボタンの機能
-            document.getElementById('emergencyButton').onclick = function() {
-                isCommentClosed = true; // コメント欄を閉鎖
-                alert('コメント欄は閉鎖されました。');
-            };
         });
     </script>
 </head>
@@ -347,7 +330,7 @@
 
 <button id="followButton">proxy_minotaurをフォロー</button>
 <button id="aboutBlankButton">about:blankを開く</button>
-<button id="emergencyButton">コメント欄を閉鎖</button>
+<button id="emergencyButton">主専用　コメント欄を閉鎖</button>
 
 <div class="blog-section">
     <h2>ブログセクション</h2>
@@ -369,6 +352,5 @@
 
 </body>
 </html>
-
 
 <html lang="ja"> <head> </div> <script src="script.js"></script> </body> </html>
