@@ -158,9 +158,6 @@
             let commentsVisible = 3; // 最初に表示するコメント数
             
             let savedName = ''; // 名前を保存する変数
-            
-            // 同じコメントの出現回数を保持するオブジェクト
-            let commentCount = {};
 
             submitCommentButton.onclick = async function() {
                 let name = nameInput.value.trim();
@@ -215,9 +212,6 @@
                 const now = Date.now();
                 const oneDayInMillis = 24 * 60 * 60 * 1000; // 1日のミリ秒
 
-                // コメントのカウントを初期化
-                commentCount = {};
-
                 for (const doc of snapshot.docs) {
                     const data = doc.data();
                     const commentTimestamp = data.timestamp;
@@ -227,25 +221,6 @@
                         await deleteDoc(doc.ref); // Firestoreから削除
                     } else {
                         allComments.push({ ...data, id: doc.id }); // IDを保存
-
-                        // コメントの出現回数をカウント
-                        const commentKey = `${data.name}:${data.comment}`;
-                        if (commentCount[commentKey]) {
-                            commentCount[commentKey]++;
-                        } else {
-                            commentCount[commentKey] = 1;
-                        }
-                    }
-                }
-
-                // 5回以上出現したコメントを削除
-                for (const [key, count] of Object.entries(commentCount)) {
-                    if (count > 5) {
-                        const [name, comment] = key.split(':');
-                        const docToDelete = allComments.find(c => c.name === name && c.comment === comment);
-                        if (docToDelete) {
-                            await deleteDoc(doc(db, "comments"), docToDelete.id);
-                        }
                     }
                 }
 
