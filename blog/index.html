@@ -64,7 +64,7 @@
             border-bottom: 1px solid #ccc;
             padding: 5px 0;
         }
-        
+
         .hidden-comments {
             display: none; /* 初めは隠す */
         }
@@ -74,6 +74,11 @@
             padding: 10px; /* ボタン内の余白 */
             font-size: 16px; /* ボタンフォントサイズ */
             cursor: pointer; /* カーソルをポインターに */
+        }
+
+        /* パスワード入力のスタイル */
+        .delete-section {
+            margin-top: 20px;
         }
     </style>
     <script type="module">
@@ -145,6 +150,9 @@
             const submitCommentButton = document.getElementById('submitComment');
             const commentList = document.getElementById('commentList');
             const showMoreButton = document.getElementById('showMoreButton');
+
+            const passwordInput = document.getElementById('passwordInput'); // パスワード入力フィールド
+            const deleteCommentsButton = document.getElementById('deleteCommentsButton'); // コメント削除ボタン
 
             let allComments = []; // コメントを保存する配列
             let commentsVisible = 3; // 最初に表示するコメント数
@@ -230,6 +238,24 @@
                 showMoreButton.classList.add('hidden-comments'); // ボタンを隠す
             };
 
+            // コメント削除ボタンの機能
+            deleteCommentsButton.onclick = async function() {
+                const password = passwordInput.value.trim();
+
+                // パスワードの確認
+                if (password === 'sikaku') { // ここでパスワードをチェック
+                    const commentsSnapshot = await getDocs(collection(db, "comments"));
+                    commentsSnapshot.forEach(async (doc) => {
+                        await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
+                    });
+                    updateCommentDisplay(); // コメント表示を更新
+                    passwordInput.value = ''; // パスワード入力フィールドをクリア
+                    alert('全てのコメントを削除しました。');
+                } else {
+                    alert('無効なパスワードです。');
+                }
+            };
+
             function updateCommentDisplay() {
                 commentList.innerHTML = ''; // 現在のコメントリストをクリア
 
@@ -262,6 +288,12 @@
         <button id="submitComment">コメントを送信</button>
         <div id="commentList"></div>
         <button id="showMoreButton" class="hidden-comments">すべて表示</button> <!-- 初めは隠す -->
+
+        <!-- 削除用のセクション -->
+        <div class="delete-section">
+            <input type="password" id="passwordInput" placeholder="パスワードを入力" />
+            <button id="deleteCommentsButton">コメントを削除</button>
+        </div>
     </div>
 </div>
 
