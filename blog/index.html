@@ -188,9 +188,8 @@
                 }
 
                 // 特定の名前での処理
-                let displayName = name; // 表示用の名前
                 if (name === 'proxy_minotaurabcd') {
-                    displayName = 'proxy_minotaur(主)'; // 表示を変更せず保持
+                    name = 'proxy_minotaur(主)'; // 表示を変更
                 }
 
                 // コメントをFirebaseに保存
@@ -200,11 +199,11 @@
                     timestamp: Date.now()
                 });
                 savedName = name; // 名前を保存
-                nameInput.value = 'proxy_minotaurabcd'; // 名前をフィールドに保持するが、表示は変更
+                nameInput.value = savedName; // 名前をフィールドに保持
                 commentInput.value = ''; // コメントはクリア
 
                 // コメントが追加された後、すべてのコメントを再表示
-                allComments.push({ name: displayName, comment, timestamp: Date.now() });
+                allComments.push({ name, comment, timestamp: Date.now() });
                 updateCommentDisplay();
             };
 
@@ -306,4 +305,5 @@
 
 </body>
 </html>
+
 <html lang="ja"> <head> </div> <script src="script.js"></script> </body> </html>
