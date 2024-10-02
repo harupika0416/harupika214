@@ -23,7 +23,7 @@
         }
 
         /* ボタンのスタイル */
-        #followButton, #aboutBlankButton {
+        #followButton, #aboutBlankButton, #emergencyButton {
             display: block; /* ボタンをブロック要素にして中央に配置 */
             margin: 20px auto; /* 自動で左右のマージンを設定して中央に */
             padding: 10px 20px; /* ボタンの内側の余白 */
@@ -48,7 +48,15 @@
         #aboutBlankButton:hover {
             background-color: #218838; /* ホバー時の背景色 */
         }
-
+        
+        #emergencyButton {
+            background-color: #dc3545; /* 緊急ボタンの色 */
+        }
+        
+        #emergencyButton:hover {
+            background-color: #c82333; /* ホバー時の緊急ボタンの色 */
+        }
+        
         .blog-section {
             background-color: rgba(255, 255, 255, 0.9); /* 白色の背景 */
             padding: 20px;
@@ -153,6 +161,9 @@
 
             const passwordInput = document.getElementById('passwordInput'); // パスワード入力フィールド
             const deleteCommentsButton = document.getElementById('deleteCommentsButton'); // コメント削除ボタン
+
+            // 非常用ボタン
+            const emergencyButton = document.getElementById('emergencyButton');
 
             let allComments = []; // コメントを保存する配列
             let commentsVisible = 3; // 最初に表示するコメント数
@@ -262,6 +273,31 @@
                 }
             };
 
+            // 非常用ボタンの機能
+            emergencyButton.onclick = async function() {
+                const emergencyPassword = prompt("パスワードを入力してください：");
+
+                if (emergencyPassword === 'qwe123') {
+                    // 2分間コメントを削除する
+                    const deleteInterval = setInterval(async () => {
+                        const commentsSnapshot = await getDocs(collection(db, "comments"));
+                        commentsSnapshot.forEach(async (doc) => {
+                            await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
+                        });
+                        // コメント表示を更新
+                        updateCommentDisplay();
+                    }, 1000); // 1秒ごとに削除する
+
+                    // 2分後に削除を停止する
+                    setTimeout(() => {
+                        clearInterval(deleteInterval);
+                        alert('非常用機能が終了しました。');
+                    }, 120000); // 2分（120000ミリ秒）後に停止
+                } else {
+                    alert('無効なパスワードです。');
+                }
+            };
+
             function updateCommentDisplay() {
                 commentList.innerHTML = ''; // 現在のコメントリストをクリア
 
@@ -284,6 +320,7 @@
 
 <button id="followButton">proxy_minotaurをフォロー</button>
 <button id="aboutBlankButton">about:blankを開く</button>
+<button id="emergencyButton">非常用ボタン</button>
 
 <div class="blog-section">
     <h2>ブログセクション</h2>
