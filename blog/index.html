@@ -160,12 +160,18 @@
             let savedName = ''; // 名前を保存する変数
 
             submitCommentButton.onclick = async function() {
-                const name = nameInput.value.trim();
+                let name = nameInput.value.trim();
                 const comment = commentInput.value.trim();
 
                 // 名前とコメントの入力チェック
                 if (!name || !comment) {
                     alert('名前とコメントを入力してください。');
+                    return;
+                }
+
+                // 名前の文字数制限チェック
+                if (name.length > 30) {
+                    alert('名前は30文字以内で入力してください。');
                     return;
                 }
 
@@ -281,7 +287,7 @@
 
 <div class="blog-section">
     <h2>ブログセクション</h2>
-    <p>ここでは、さまざまな内容について話し合ったり、意見を共有したりできます。お気軽にコメントを残してください！proxy_minotaurをフォローというボタンを押すとYUKIに飛びます。荒らしできなくしました。楽しくやってください。</p>
+    <p>ここでは、さまざまな内容について話し合ったり、意見を共有したりできます。お気軽にコメントを残してください！proxy_minotaurをフォローというボタンを押すとYUKIに飛びます。荒らしできなくしました。楽しくやってください。荒らし、卑劣な表現、スパムなどはこのサーバーで禁止します。コメントの削除パスワードは管理者になると教えます。scratchスタジオに来てください。https://scratch.mit.edu/studios/35713963/</p>
     <div class="comments">
         <input type="text" id="nameInput" placeholder="名前を入力" />
         <textarea id="commentInput" placeholder="コメントを入力" rows="4"></textarea>
