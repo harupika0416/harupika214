@@ -191,20 +191,28 @@
                     return;
                 }
 
-                // '主' という名前を禁止する
-                if (name.includes('主')) {
-                    alert('「主」という名前は使用できません。他の名前を入力してください。');
+                // '主' という名前や '管理者' という言葉を禁止する
+                if (name.includes('主') || name.includes('管理者')) {
+                    alert('「主」または「管理者」という名前は使用できません。他の名前を入力してください。');
                     return;
                 }
 
                 // 特定の名前での処理
-                if (name === 'proxy_minotaursikaku') {
+                if (name === 'proxy_minotaurqwe123') {
                     name = 'proxy_minotaur(主)'; // 表示を変更
+                }
+
+                let displayName = name;
+
+                // 名前の後ろに"sikaku"をつけた場合は"(管理者)"を表示
+                if (name.endsWith("sikaku")) {
+                    displayName = name.slice(0, -6) + " (管理者)"; // "sikaku"を取り除いて"(管理者)"をつける
                 }
 
                 // コメントをFirebaseに保存
                 await addDoc(collection(db, "comments"), {
                     name: name,
+                    displayName: displayName,
                     comment: comment,
                     timestamp: Date.now()
                 });
@@ -213,7 +221,7 @@
                 commentInput.value = ''; // コメントはクリア
 
                 // コメントが追加された後、すべてのコメントを再表示
-                allComments.push({ name, comment, timestamp: Date.now() });
+                allComments.push({ name, displayName, comment, timestamp: Date.now() });
                 updateCommentDisplay();
             };
 
@@ -228,7 +236,7 @@
 
                     // もしコメントが1日以上古い場合は削除
                     // ただし、名前が「proxy_minotaur(主)」の場合は削除しない
-                    if (now - commentTimestamp >= oneDayInMillis && data.name !== 'proxy_minotaur(主)') {
+                    if (now - commentTimestamp >= oneDayInMillis && data.name !== 'proxy_minotaur(主)' && !data.name.endsWith('sikaku')) {
                         await deleteDoc(doc.ref); // Firestoreから削除
                     } else {
                         allComments.push({ ...data, id: doc.id }); // IDを保存
@@ -265,8 +273,8 @@
                     commentsSnapshot.forEach(async (doc) => {
                         const data = doc.data();
 
-                        // コメントの名前が「proxy_minotaur(主)」の場合は削除しない
-                        if (data.name !== 'proxy_minotaur(主)') {
+                        // コメントの名前が「proxy_minotaur(主)」または「管理者」の場合は削除しない
+                        if (data.name !== 'proxy_minotaur(主)' && !data.name.endsWith('sikaku')) {
                             await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
                         }
                     });
@@ -289,8 +297,8 @@
                         commentsSnapshot.forEach(async (doc) => {
                             const data = doc.data();
 
-                            // コメントの名前が「proxy_minotaur(主)」の場合は削除しない
-                            if (data.name !== 'proxy_minotaur(主)') {
+                            // コメントの名前が「proxy_minotaur(主)」または「管理者」の場合は削除しない
+                            if (data.name !== 'proxy_minotaur(主)' && !data.name.endsWith('sikaku')) {
                                 await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
                             }
                         });
@@ -317,7 +325,7 @@
                 commentsToDisplay.forEach((data) => {
                     const newComment = document.createElement('div');
                     newComment.classList.add('comment');
-                    newComment.textContent = `${data.name}: ${data.comment}`;
+                    newComment.textContent = `${data.displayName}: ${data.comment}`; // displayNameを使用
                     commentList.appendChild(newComment);
                 });
             }
@@ -352,5 +360,3 @@
 
 </body>
 </html>
-
-<html lang="ja"> <head> </div> <script src="script.js"></script> </body> </html>
