@@ -273,10 +273,8 @@
                     commentsSnapshot.forEach(async (doc) => {
                         const data = doc.data();
 
-                        // コメントの名前が「proxy_minotaur(主)」または「管理者」の場合は削除しない
-                        if (data.name !== 'proxy_minotaur(主)' && !data.name.endsWith('sikaku')) {
-                            await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
-                        }
+                        // コメントの名前が「proxy_minotaur(主)」または「管理者」の場合でも削除できる
+                        await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
                     });
                     updateCommentDisplay(); // コメント表示を更新
                     passwordInput.value = ''; // パスワード入力フィールドをクリア
@@ -298,9 +296,7 @@
                             const data = doc.data();
 
                             // コメントの名前が「proxy_minotaur(主)」または「管理者」の場合は削除しない
-                            if (data.name !== 'proxy_minotaur(主)' && !data.name.endsWith('sikaku')) {
-                                await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
-                            }
+                            await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
                         });
                         // コメント表示を更新
                         updateCommentDisplay();
