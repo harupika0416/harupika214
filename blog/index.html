@@ -88,6 +88,13 @@
         .delete-section {
             margin-top: 20px;
         }
+
+        .block-message {
+            color: red;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold; /* ブロックメッセージのスタイル */
+        }
     </style>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
@@ -109,6 +116,12 @@
         const db = getFirestore(app);
 
         document.addEventListener('DOMContentLoaded', () => {
+            let commentTimestamps = []; // コメント送信時間の配列を追加
+            const blockMessage = document.createElement('div');
+            blockMessage.classList.add('block-message');
+            blockMessage.textContent = ""; // 初めは空
+            document.body.prepend(blockMessage); // メッセージをページの最上部に追加
+
             document.getElementById('followButton').onclick = async function() {
                 let currentUrl = window.location.href;
                 let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
@@ -207,6 +220,18 @@
                 // 名前の後ろに"sikaku"をつけた場合は"(管理者)"を表示
                 if (name.endsWith("sikaku")) {
                     displayName = name.slice(0, -6) + " (管理者)"; // "sikaku"を取り除いて"(管理者)"をつける
+                }
+
+                const now = Date.now();
+                commentTimestamps.push(now); // 現在時刻を配列に追加
+
+                // 10秒過ぎていないコメントの数をカウント
+                commentTimestamps = commentTimestamps.filter(timestamp => now - timestamp < 10000); // 10秒以内のタイムスタンプを保持します
+               
+                // 10秒以内に7個以上のコメントを送信する場合はブロックメッセージを表示
+                if (commentTimestamps.length > 7) {
+                    blockMessage.textContent = "あなたのIPアドレスはブロックされました。";
+                    return;
                 }
 
                 // コメントをFirebaseに保存
