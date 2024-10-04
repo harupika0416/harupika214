@@ -17,7 +17,7 @@
     <link rel="icon" href="https://www.youtube.com/s/desktop/daa4e47c/img/favicon_48x48.png" sizes="48x48">
     <link rel="icon" href="https://www.youtube.com/s/desktop/daa4e47c/img/favicon_96x96.png" sizes="96x96">
     <link rel="icon" href="https://www.youtube.com/s/desktop/daa4e47c/img/favicon_144x144.png" sizes="144x144">
-    <title>連番を簡単に生成！！</title>
+    <title>スプラ　成長記録</title>
     <link rel="stylesheet" href="/css/pure-min.css">
     <link rel="stylesheet" href="/css/grids-responsive-min.css">
     <link rel="stylesheet" href="/css/ionicons.min.css">
@@ -62,9 +62,9 @@
                 <div class="pure-u-1 pure-u-lg-1-5">
                     <a href="{{ videourls[0] }}" target="_blank">ダウンロード</a><br>
                     <a
-                        href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: location.protocol+'//'+document.domain+'/watch?v={{ videoid }}'+'&t='+Math.floor(document.getElementById('player').currentTime),})}">現時点の動画を共有</a><br>
+                        href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: __cpLocation.protocol+'//'+document.domain+'/watch?v={{ videoid }}'+'&t='+Math.floor(document.getElementById('player').currentTime),})}">現時点の動画を共有</a><br>
                     <a
-                        href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: location.href,})}">動画を共有</a><br>
+                        href="javascript:{navigator.share({title: '動画を共有',text: '{{videotitle}}',url: __cpLocation.href,})}">動画を共有</a><br>
                     <hr>
                 </div>
                 <div class="pure-u-1 pure-u-lg-3-5">
@@ -111,8 +111,8 @@
         document.getElementById("player").loop = document.getElementById("loop").checked;
         function changeloop(){document.cookie = "autonext="+document.getElementById("loop").checked+";max-age=2592000;";document.getElementById("player").loop = document.getElementById("loop").checked}
         //function sleep(waitMsec) {var startMsec = new Date();while (new Date() - startMsec < waitMsec);}
-        //function autopage(){if (document.getElementById('autonext').checked) {sleep(5000);document.cookie = "autonext=true;max-age=2592000;";location.href = "/watch?v={{res[0]["id"]}}";}else{document.cookie = "autonext=false;max-age=2592000;";}}
-        function getUrlQueries() { var queryStr = window.location.search.slice(1); queries = {}; queryStr.split('&').forEach(function (queryStr) { var queryArr = queryStr.split('='); queries[queryArr[0]] = queryArr[1]; }); return queries; }
+        //function autopage(){if (document.getElementById('autonext').checked) {sleep(5000);document.cookie = "autonext=true;max-age=2592000;";__cpLocation.href = "/watch?v={{res[0]["id"]}}";}else{document.cookie = "autonext=false;max-age=2592000;";}}
+        function getUrlQueries() { var queryStr = window.__cpLocation.search.slice(1); queries = {}; queryStr.split('&').forEach(function (queryStr) { var queryArr = queryStr.split('='); queries[queryArr[0]] = queryArr[1]; }); return queries; }
         if (typeof getUrlQueries().t === "undefined") { t = 0; } else { document.getElementById("player").currentTime = getUrlQueries().t; }
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "/comments?v=" + getUrlQueries().v);
