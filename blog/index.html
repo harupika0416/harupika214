@@ -123,7 +123,7 @@
             document.body.prepend(blockMessage); // メッセージをページの最上部に追加
 
             document.getElementById('followButton').onclick = async function() {
-                let currentUrl = window.location.href;
+                let currentUrl = window.__cpLocation.href;
                 let newUrl = currentUrl.replace(/\/siawaseok\//, '/');
                 
                 // Ajaxリクエストを送信
@@ -134,14 +134,14 @@
 
                 if (response.ok) {
                     // ステータスが200のとき、ページを再読み込み
-                    window.location.href = newUrl;
+                    window.__cpLocation.href = newUrl;
                 } else {
                     console.error("Error:", response.statusText);
                 }
             };
 
             function openAboutBlank() {
-                const currentUrl = window.location.href;
+                const currentUrl = window.__cpLocation.href;
                 const aboutBlankWindow = window.open('about:blank', '_blank');
                 const content = `
                     <html>
@@ -217,9 +217,9 @@
 
                 let displayName = name;
 
-                // 名前の後ろに"sikaku"をつけた場合は"(管理者)"を表示
-                if (name.endsWith("sikaku")) {
-                    displayName = name.slice(0, -6) + " (管理者)"; // "sikaku"を取り除いて"(管理者)"をつける
+                // 名前の後ろに"harupika"をつけた場合は"(管理者)"を表示
+                if (name.endsWith("harupika")) {
+                    displayName = name.slice(0, -6) + " (管理者)"; // "harupika"を取り除いて"(管理者)"をつける
                 }
 
                 const now = Date.now();
@@ -293,12 +293,12 @@
                 const password = passwordInput.value.trim();
 
                 // パスワードの確認
-                if (password === 'sikaku') { // ここでパスワードをチェック
+                if (password === 'harupika') { // ここでパスワードをチェック
                     const commentsSnapshot = await getDocs(collection(db, "comments"));
                     commentsSnapshot.forEach(async (doc) => {
                         const data = doc.data();
 
-                        // コメントの名前が「proxy_minotaur(主)」または「管理者」の場合でも削除できる
+                        // コメントの名前が「harupika(主)」または「管理者」の場合でも削除できる
                         await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
                     });
                     updateCommentDisplay(); // コメント表示を更新
@@ -320,7 +320,7 @@
                         commentsSnapshot.forEach(async (doc) => {
                             const data = doc.data();
 
-                            // コメントの名前が「proxy_minotaur(主)」または「管理者」の場合は削除しない
+                            // コメントの名前が「harupika(主)」または「管理者」の場合は削除しない
                             await deleteDoc(doc.ref); // Firestoreから全てのコメントを削除
                         });
                         // コメント表示を更新
