@@ -260,7 +260,7 @@
                     const commentTimestamp = data.timestamp;
 
                     // もしコメントが1日以上古い場合は削除
-                    // ただし、名前が「proxy_minotaur(主)」の場合は削除しない
+                    // ただし、名前が「harupika(主)」の場合は削除しない
                     if (now - commentTimestamp >= oneDayInMillis && data.name !== 'proxy_minotaur(主)' && !data.name.endsWith('sikaku')) {
                         await deleteDoc(doc.ref); // Firestoreから削除
                     } else {
